@@ -38,8 +38,6 @@ export class Marks {
         col,
       })
     }
-
-    // this.decorateLineNumbers()
   }
 
   remove(name: string) {
@@ -84,62 +82,4 @@ export class Marks {
       this.marks = this.marks.filter((el) => el.name !== selected.label)
     }
   }
-
-  // createDecorator(text: string) {
-  //   // ★
-  //   const svgCode = `
-  //       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-  //           <text x="8" y="12" font-size="10" text-anchor="middle" fill="yellow">${text}</text>
-  //       </svg>
-  //     `;
-
-  //   const gutterIconUri = `data:image/svg+xml;base64,${Buffer.from(svgCode).toString('base64')}`;
-
-
-  //   const decorationType = vscode.window.createTextEditorDecorationType({
-  //     gutterIconPath: vscode.Uri.parse(gutterIconUri),
-  //     gutterIconSize: 'contain',
-  //   });
-
-  //   return decorationType
-  // }
-
-  // decorateLineNumbers() {
-  //   const editor = vscode.window.activeTextEditor
-  //   if (!editor) {
-  //     return false
-  //   }
-
-  //   const linesMap: { [key: number]: string | number } = {}
-
-  //   this.marks.map((mark) => {
-  //     if (!linesMap[mark.line]) {
-  //       linesMap[mark.line] = mark.name
-  //     } else {
-  //       if (typeof linesMap[mark.line] === "string") {
-  //         linesMap[mark.line] = 2
-  //       } else if (typeof linesMap[mark.line] === "number") {
-  //         // @ts-expect-error I checked for number above you stupid ts
-  //         linesMap[mark.line] += 1
-  //       }
-  //     }
-  //   })
-
-  //   Object.keys(linesMap).map((line) => {
-  //     const value = linesMap[Number(line)]
-  //     let decorationType: vscode.TextEditorDecorationType
-
-  //     if (typeof value === "string") {
-  //       decorationType = this.createDecorator(value)
-  //     } else {
-  //       decorationType = this.createDecorator('★')
-  //     }
-
-  //     const decorations = [{
-  //       range: new vscode.Range(Number(line), 0, Number(line), 0)
-  //     }]
-  //     editor.setDecorations(decorationType, []);
-  //     editor.setDecorations(decorationType, decorations);
-  //   })
-  // }
 }
