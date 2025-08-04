@@ -1,0 +1,95 @@
+{
+  "name": "vim-marks",
+  "displayName": "Vim-Marks",
+  "description": "Mark positions in code for quick jump just like in Vim",
+  "icon": "icon.png",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.102.3"
+  },
+  "galleryBanner": {
+    "color": "#0b151b",
+    "theme": "dark"
+  },
+  "categories": [
+    "Keymaps",
+    "Other"
+  ],
+  "keywords": [
+    "vim",
+    "modal",
+    "keymaps",
+    "surround",
+    "multi-cursor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmburov/vim-marks-vscode"
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:type"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "keybindings": [
+       {
+        "key": "escape",
+        "command": "vim-marks.stop",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "alt+'",
+        "command": "vim-marks.add",
+        "when": "editorTextFocus"
+      },
+      {
+        "key": "alt+;",
+        "command": "vim-marks.go",
+        "when": "editorTextFocus"
+      }
+    ],
+    "commands": [
+      {
+        "command": "vim-marks.marks",
+        "title": "Vim-Marks: Show Marks"
+      },
+      {
+        "command": "vim-marks.add",
+        "title": "Vim-Marks: Add mark"
+      },
+      {
+        "command": "vim-marks.go",
+        "title": "Vim-Marks: Go to mark"
+      }
+    ],
+    "configuration": {
+      "title": "Vim-Marks",
+      "properties": {
+        "vim-marks.showInputIndicator": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show status line indicator when plugin is waiting for input"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts --fix",
+    "update": "npx npm-check-updates -i",
+    "deps": "npm i -g @vscode/vsce",
+    "pack": "npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "@types/node": "^24.1.0",
+    "@types/vscode": "^1.102.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.32.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.38.0"
+  }
+}
