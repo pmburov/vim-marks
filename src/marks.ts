@@ -7,13 +7,32 @@ export interface IMark {
   col: number
 }
 
+type TRestore = {
+  marks?: IMark[]
+}
+
 export class Marks {
   marks: IMark[]
+  context: vscode.ExtensionContext
 
   constructor(context: vscode.ExtensionContext) {
     this.marks = []
 
+    this.context = context
     context.subscriptions.push(vscode.commands.registerCommand("vim-marks.marks", this.showMarks, this))
+    context.subscriptions.push(vscode.commands.registerCommand("vim-marks.clear", this.clear, this))
+
+    const restore: TRestore = context.workspaceState.get("marks") || {}
+    if (restore?.marks?.length) {
+      restore.marks.map((mark) => {
+        this.add(
+          mark.name,
+          mark.path,
+          mark.line,
+          mark.col,
+        )
+      })
+    }
   }
 
   get(name: string) {
@@ -38,10 +57,18 @@ export class Marks {
         col,
       })
     }
+
+    this.context.workspaceState.update("marks", this.marks)
   }
 
   remove(name: string) {
     this.marks = this.marks.filter((el) => el.name !== name)
+    this.context.workspaceState.update("marks", this.marks)
+  }
+
+  clear() {
+    this.marks = []
+    this.context.workspaceState.update("marks", this.marks)
   }
 
   async open(name: string) {

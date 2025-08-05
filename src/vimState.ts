@@ -53,6 +53,19 @@ export class VimState {
 
   static async type(text: string) {
     if (this.listenForInput) {
+      const config = vscode.workspace.getConfiguration("vim-marks")
+
+      if (config.get("useSameHotkeyToAddAndGo")) {
+        const found = this.marks.get(text)
+
+        if (found > -1) {
+          this.statusBar.text = ""
+          this.statusBar.hide()
+          this.marks.open(text)
+          return true
+        }
+      }
+
       const editor = vscode.window.activeTextEditor
       if (!editor) {
         return false
@@ -69,13 +82,12 @@ export class VimState {
         )
 
         this.isAdd = false
-        this.statusBar.text = ""
-        this.statusBar.hide()
-
-
       } else {
         this.marks.open(text)
       }
+
+      this.statusBar.text = ""
+      this.statusBar.hide()
       this.listenForInput = false
     } else {
       vscode.commands.executeCommand("default:type", { text: text })

@@ -2,7 +2,7 @@
   "name": "vim-marks",
   "displayName": "Vim-Marks",
   "description": "Mark positions in code for quick jump just like in Vim",
-  "icon": "icon.png",
+  "icon": "media/icon.png",
   "version": "1.0.0",
   "engines": {
     "vscode": "^1.102.3"
@@ -61,6 +61,10 @@
       {
         "command": "vim-marks.go",
         "title": "Vim-Marks: Go to mark"
+      },
+      {
+        "command": "vim-marks.clear",
+        "title": "Vim-Marks: Clear all marks"
       }
     ],
     "configuration": {
@@ -70,6 +74,11 @@
           "type": "boolean",
           "default": true,
           "description": "Show status line indicator when plugin is waiting for input"
+        },
+        "vim-marks.useSameHotkeyToAddAndGo": {
+          "type": "boolean",
+          "default": false,
+          "description": "By default reusing mark character will override the position of the mark if mark already exists. Use this option to go to mark instead of overriding it"
         }
       }
     }
