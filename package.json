@@ -3,7 +3,7 @@
   "displayName": "Vim-Marks",
   "description": "Mark positions in code for quick jump just like in Vim",
   "icon": "media/icon.png",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "engines": {
     "vscode": "^1.102.3"
   },
@@ -24,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/pmburov/vim-marks-vscode"
+    "url": "https://github.com/pmburov/vim-marks"
   },
   "activationEvents": [
     "onStartupFinished",
