@@ -17,10 +17,9 @@
   ],
   "keywords": [
     "vim",
-    "modal",
-    "keymaps",
-    "surround",
-    "multi-cursor"
+    "marks",
+    "bookmarks",
+    "keymaps"
   ],
   "repository": {
     "type": "git",
