@@ -3,7 +3,7 @@
   "displayName": "Vim-Marks",
   "description": "Mark positions in code for quick jump just like in Vim",
   "icon": "media/icon.png",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.102.3"
   },
@@ -64,7 +64,7 @@
       },
       {
         "command": "vim-marks.clear",
-        "title": "Vim-Marks: Clear all marks"
+        "title": "Vim-Marks: Clear all Marks"
       }
     ],
     "configuration": {
@@ -78,7 +78,7 @@
         "vim-marks.useSameHotkeyToAddAndGo": {
           "type": "boolean",
           "default": false,
-          "description": "By default reusing mark character will override the position of the mark if mark already exists. Use this option to go to mark instead of overriding it"
+          "description": "By default reusing the same mark character will override the position of the mark if it already exists. Use this option to go to mark instead of overriding it"
         }
       }
     }
