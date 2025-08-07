@@ -7,10 +7,6 @@ export interface IMark {
   col: number
 }
 
-type TRestore = {
-  marks?: IMark[]
-}
-
 export class Marks {
   marks: IMark[]
   context: vscode.ExtensionContext
@@ -22,9 +18,9 @@ export class Marks {
     context.subscriptions.push(vscode.commands.registerCommand("vim-marks.marks", this.showMarks, this))
     context.subscriptions.push(vscode.commands.registerCommand("vim-marks.clear", this.clear, this))
 
-    const restore: TRestore = context.workspaceState.get("marks") || {}
-    if (restore?.marks?.length) {
-      restore.marks.map((mark) => {
+    const restore: IMark[] = context.workspaceState.get("marks") || []
+    if (restore?.length) {
+      restore.map((mark) => {
         this.add(
           mark.name,
           mark.path,
