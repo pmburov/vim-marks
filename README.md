@@ -6,7 +6,7 @@ Vim-Marks extension brings the same feature to VS Code.
 
 ## Demo
 
-<video src="media/demo.mp4" controls></video>
+https://github.com/user-attachments/assets/51664812-1128-4197-9108-6f870b183e20
 
 ## Default hotkeys
 
