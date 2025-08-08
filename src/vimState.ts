@@ -1,14 +1,12 @@
 import * as vscode from "vscode"
 import { Marks } from "./marks"
 
-export type Mode = "NORMAL" | "INSERT" | "VISUAL" | "VISUAL_LINE"
-export type SubMode = "OPERATOR_PENDING" | "MULTI_CURSOR" | "NONE"
-
 export class VimState {
   static statusBar: vscode.StatusBarItem
   static marks: Marks
   static listenForInput: boolean
   static isAdd: boolean
+  static typeHandler: vscode.Disposable | null = null
 
   static init(context: vscode.ExtensionContext) {
     this.listenForInput = false
@@ -20,7 +18,14 @@ export class VimState {
     this.marks = new Marks(context)
   }
 
+  static regTypeHandler() {
+    this.typeHandler = vscode.commands.registerCommand("type", (text) => {
+      this.type(text.text)
+    })
+  }
+
   static add() {
+    this.regTypeHandler()
     const config = vscode.workspace.getConfiguration("vim-marks")
 
     this.isAdd = true
@@ -33,6 +38,7 @@ export class VimState {
   }
 
   static go() {
+    this.regTypeHandler()
     const config = vscode.workspace.getConfiguration("vim-marks")
 
     this.isAdd = false
@@ -91,6 +97,10 @@ export class VimState {
       this.listenForInput = false
     } else {
       vscode.commands.executeCommand("default:type", { text: text })
+    }
+    if (this.typeHandler) {
+      this.typeHandler.dispose()
+      this.typeHandler = null
     }
   }
 }

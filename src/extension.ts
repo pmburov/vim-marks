@@ -4,12 +4,6 @@ import { VimState } from "./vimState"
 export function activate(context: vscode.ExtensionContext) {
   VimState.init(context)
 
-  context.subscriptions.push(
-    vscode.commands.registerCommand("type", (text) => {
-      VimState.type(text.text)
-    }),
-  )
-
   const d1 = vscode.commands.registerCommand("vim-marks.add", () => {
     VimState.add()
   })
