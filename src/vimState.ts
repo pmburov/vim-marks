@@ -16,6 +16,7 @@ export class VimState {
     context.subscriptions.push(this.statusBar)
 
     this.marks = new Marks(context)
+    vscode.commands.executeCommand("setContext", "vim-marks.mode", "")
   }
 
   static regTypeHandler() {
@@ -25,6 +26,7 @@ export class VimState {
   }
 
   static add() {
+    vscode.commands.executeCommand("setContext", "vim-marks.mode", "input")
     this.regTypeHandler()
     const config = vscode.workspace.getConfiguration("vim-marks")
 
@@ -38,6 +40,7 @@ export class VimState {
   }
 
   static go() {
+    vscode.commands.executeCommand("setContext", "vim-marks.mode", "input")
     this.regTypeHandler()
     const config = vscode.workspace.getConfiguration("vim-marks")
 
@@ -59,6 +62,7 @@ export class VimState {
       this.typeHandler.dispose()
       this.typeHandler = null
     }
+    vscode.commands.executeCommand("setContext", "vim-marks.mode", "")
   }
 
   static async type(text: string) {
@@ -105,6 +109,7 @@ export class VimState {
     if (this.typeHandler) {
       this.typeHandler.dispose()
       this.typeHandler = null
+      vscode.commands.executeCommand("setContext", "vim-marks.mode", "")
     }
   }
 }

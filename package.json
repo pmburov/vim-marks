@@ -35,7 +35,7 @@
        {
         "key": "escape",
         "command": "vim-marks.stop",
-        "when": "editorTextFocus"
+        "when": "editorTextFocus && vim-marks.mode === input"
       },
       {
         "key": "alt+'",
