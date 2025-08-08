@@ -55,6 +55,10 @@ export class VimState {
     this.listenForInput = false
     this.statusBar.text = ""
     this.statusBar.hide()
+    if (this.typeHandler) {
+      this.typeHandler.dispose()
+      this.typeHandler = null
+    }
   }
 
   static async type(text: string) {
