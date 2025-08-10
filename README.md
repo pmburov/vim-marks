@@ -10,7 +10,7 @@ https://github.com/user-attachments/assets/51664812-1128-4197-9108-6f870b183e20
 
 ## Default hotkeys
 
-Hotkeys activate input mode to enter a single character
+Hotkeys and commands activate input mode to enter a single character
 
 - `alt+'` - Add a mark
 - `alt+;` - Go to mark
@@ -21,3 +21,14 @@ Hotkeys activate input mode to enter a single character
 - Vim-Marks: Add mark
 - Vim-Marks: Go to mark
 - Vim-Marks: Clear all Marks
+
+## How to build locally
+
+Run `npm run deps` once, it will globally install `@vscode/vsce` necessary for creating `.vsix` package
+
+```bash
+npm run build
+npm run pack
+```
+
+Drag and drop `.vsix` package into Extensions sidebar area inside VS Code
