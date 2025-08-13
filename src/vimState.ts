@@ -1,5 +1,6 @@
 import * as vscode from "vscode"
 import { Marks } from "./marks"
+import { getConfig, MarksConfig } from "./config"
 
 export class VimState {
   static statusBar: vscode.StatusBarItem
@@ -7,6 +8,7 @@ export class VimState {
   static listenForInput: boolean
   static isAdd: boolean
   static typeHandler: vscode.Disposable | null = null
+  static config: MarksConfig
 
   static init(context: vscode.ExtensionContext) {
     this.listenForInput = false
@@ -17,6 +19,13 @@ export class VimState {
 
     this.marks = new Marks(context)
     vscode.commands.executeCommand("setContext", "vim-marks.mode", "")
+
+    const config = vscode.workspace.getConfiguration("vim-marks")
+    this.config = getConfig(config)
+  }
+
+  static updateConfig(config: vscode.WorkspaceConfiguration) {
+    this.config = getConfig(config)
   }
 
   static regTypeHandler() {
@@ -28,12 +37,11 @@ export class VimState {
   static add() {
     vscode.commands.executeCommand("setContext", "vim-marks.mode", "input")
     this.regTypeHandler()
-    const config = vscode.workspace.getConfiguration("vim-marks")
 
     this.isAdd = true
     this.listenForInput = true
 
-    if (config.get("showInputIndicator")) {
+    if (this.config.showInputIndicator) {
       this.statusBar.text = "Input mark"
       this.statusBar.show()
     }
@@ -42,15 +50,22 @@ export class VimState {
   static go() {
     vscode.commands.executeCommand("setContext", "vim-marks.mode", "input")
     this.regTypeHandler()
-    const config = vscode.workspace.getConfiguration("vim-marks")
 
     this.isAdd = false
     this.listenForInput = true
 
-    if (config.get("showInputIndicator")) {
+    if (this.config.showInputIndicator) {
       this.statusBar.text = "Input mark"
       this.statusBar.show()
     }
+  }
+
+  static async center() {
+    const currentLineNumber = vscode.window.activeTextEditor?.selection.start.line;
+    await vscode.commands.executeCommand("revealLine", {
+      lineNumber: currentLineNumber,
+      at: "center"
+    });
   }
 
   static stop() {
@@ -67,15 +82,14 @@ export class VimState {
 
   static async type(text: string) {
     if (this.listenForInput) {
-      const config = vscode.workspace.getConfiguration("vim-marks")
-
-      if (config.get("useSameHotkeyToAddAndGo")) {
+      if (this.config.useSameHotkeyToAddAndGo) {
         const found = this.marks.get(text)
 
         if (found > -1) {
           this.statusBar.text = ""
           this.statusBar.hide()
           this.marks.open(text)
+          this.stop()
           return true
         }
       }
@@ -100,16 +114,9 @@ export class VimState {
         this.marks.open(text)
       }
 
-      this.statusBar.text = ""
-      this.statusBar.hide()
-      this.listenForInput = false
+      this.stop()
     } else {
       vscode.commands.executeCommand("default:type", { text: text })
-    }
-    if (this.typeHandler) {
-      this.typeHandler.dispose()
-      this.typeHandler = null
-      vscode.commands.executeCommand("setContext", "vim-marks.mode", "")
     }
   }
 }

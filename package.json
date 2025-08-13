@@ -3,7 +3,7 @@
   "displayName": "Vim-Marks",
   "description": "Mark positions in code for quick jump just like in Vim",
   "icon": "media/icon.png",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "engines": {
     "vscode": "^1.102.3"
   },
@@ -46,6 +46,11 @@
         "key": "alt+;",
         "command": "vim-marks.go",
         "when": "editorTextFocus"
+      },
+      {
+        "key": "alt+z alt+z",
+        "command": "vim-marks.center",
+        "when": "editorTextFocus"
       }
     ],
     "commands": [
@@ -64,6 +69,10 @@
       {
         "command": "vim-marks.clear",
         "title": "Vim-Marks: Clear all Marks"
+      },
+      {
+        "command": "vim-marks.center",
+        "title": "Vim-Marks: Center screen"
       }
     ],
     "configuration": {
@@ -73,6 +82,11 @@
           "type": "boolean",
           "default": true,
           "description": "Show status line indicator when plugin is waiting for input"
+        },
+        "vim-marks.centerScreenAfterJump": {
+          "type": "boolean",
+          "default": true,
+          "description": "Center screen on cursor position after the jump"
         },
         "vim-marks.useSameHotkeyToAddAndGo": {
           "type": "boolean",

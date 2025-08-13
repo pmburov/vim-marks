@@ -1,4 +1,5 @@
 import * as vscode from "vscode"
+import { VimState } from "./vimState"
 
 export interface IMark {
   name: string
@@ -82,6 +83,10 @@ export class Marks {
       if (editor) {
         editor.selection = new vscode.Selection(position, position)
         editor.revealRange(new vscode.Range(position, position))
+
+        if (VimState.config.centerScreenAfterJump) {
+          VimState.center()
+        }
       }
     }
   }

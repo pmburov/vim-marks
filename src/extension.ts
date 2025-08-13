@@ -19,6 +19,19 @@ export function activate(context: vscode.ExtensionContext) {
   })
   context.subscriptions.push(d3)
 
+  const d4 = vscode.commands.registerCommand("vim-marks.center", async () => {
+    VimState.center()
+  })
+  context.subscriptions.push(d4)
+
+  const configChangeListener = vscode.workspace.onDidChangeConfiguration(event => {
+    if (event.affectsConfiguration('vim-marks')) {
+      const config = vscode.workspace.getConfiguration("vim-marks")
+      VimState.updateConfig(config)
+    }
+  })
+  context.subscriptions.push(configChangeListener)
+
   return {
     VimState,
   }
