@@ -2,6 +2,7 @@
   "name": "vim-marks",
   "displayName": "Vim-Marks",
   "description": "Mark positions in code for quick jump just like in Vim",
+  "publisher": "Pavel",
   "icon": "media/icon.png",
   "version": "1.0.3",
   "engines": {
